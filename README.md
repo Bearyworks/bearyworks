@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="450px" src="/bearyworks-logo.png">
+  <img width="450px" src="/bearyworks.png">
 </p>
 
 <p align="center">
