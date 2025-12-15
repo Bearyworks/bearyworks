@@ -18,7 +18,7 @@ composer install
 
 ## Testing
 
-The project is tested across multiple Symfony versions (5.4, 6.4, 7.0, 7.1) using GitHub Actions.
+The project is tested across multiple Symfony versions (7.x and 8.x) using GitHub Actions.
 
 ### Run PHPUnit tests
 
