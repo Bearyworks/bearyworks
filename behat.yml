@@ -1,0 +1,11 @@
+default:
+    suites:
+        default:
+            contexts:
+                - Bearyworks\Tests\Behat\HelloWorldContext
+    extensions:
+        FriendsOfBehat\SymfonyExtension:
+            kernel:
+                class: Bearyworks\Tests\App\AppKernel
+                environment: test
+                debug: true

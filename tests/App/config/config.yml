@@ -1,0 +1,6 @@
+framework:
+    secret: 'test_secret'
+    test: ~
+    router:
+        resource: '%kernel.project_dir%/tests/App/config/routing.yml'
+    http_method_override: false
