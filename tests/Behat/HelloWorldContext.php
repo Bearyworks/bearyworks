@@ -2,18 +2,20 @@
 
 namespace Bearyworks\Tests\Behat;
 
+use Bearyworks\Tests\App\AppKernel;
 use Behat\Behat\Context\Context;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\KernelInterface;
 
 class HelloWorldContext implements Context
 {
+    private AppKernel $kernel;
     private ?Response $response = null;
 
-    public function __construct(
-        private KernelInterface $kernel
-    ) {
+    public function __construct()
+    {
+        $this->kernel = new AppKernel('test', true);
+        $this->kernel->boot();
     }
 
     /**
