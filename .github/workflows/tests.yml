@@ -41,13 +41,7 @@ jobs:
       
       - name: Install dependencies
         run: |
-          composer config "require.symfony/framework-bundle" "${{ matrix.symfony }}"
-          composer config "require.symfony/http-kernel" "${{ matrix.symfony }}"
-          composer config "require.symfony/dependency-injection" "${{ matrix.symfony }}"
-          composer config "require.symfony/config" "${{ matrix.symfony }}"
-          composer config "require-dev.symfony/browser-kit" "${{ matrix.symfony }}"
-          composer config "require-dev.symfony/dotenv" "${{ matrix.symfony }}"
-          composer config "require-dev.symfony/yaml" "${{ matrix.symfony }}"
+          composer require "symfony/framework-bundle:${{ matrix.symfony }}" "symfony/http-kernel:${{ matrix.symfony }}" "symfony/dependency-injection:${{ matrix.symfony }}" "symfony/config:${{ matrix.symfony }}" "symfony/browser-kit:${{ matrix.symfony }}" "symfony/dotenv:${{ matrix.symfony }}" "symfony/yaml:${{ matrix.symfony }}" --no-update --no-interaction
           composer update --prefer-dist --no-progress --no-interaction --optimize-autoloader
       
       - name: Run PHPUnit tests
