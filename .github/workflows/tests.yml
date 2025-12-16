@@ -28,6 +28,10 @@ jobs:
           extensions: mbstring, xml, ctype, iconv, intl, pdo_sqlite, dom, filter, gd, json, mbstring, pdo
           coverage: none
       
+      - name: Install jq
+        run: sudo apt-get update && sudo apt-get install -y jq
+
+      
       - name: Get Composer cache directory
         id: composer-cache
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
@@ -41,6 +45,12 @@ jobs:
       
       - name: Install dependencies
         run: |
+          # Temporarily modify composer.json for Symfony 8.x compatibility
+          if [[ "${{ matrix.symfony }}" == "8.0.*" || "${{ matrix.symfony }}" == "8.1.*" ]]; then
+            echo "Removing behat/behat for Symfony ${{ matrix.symfony }}"
+            jq 'del(.["require-dev"]["behat/behat"])' composer.json > composer.json.tmp && mv composer.json.tmp composer.json
+          fi
+
           composer require "symfony/framework-bundle:${{ matrix.symfony }}" "symfony/http-kernel:${{ matrix.symfony }}" "symfony/dependency-injection:${{ matrix.symfony }}" "symfony/config:${{ matrix.symfony }}" "symfony/browser-kit:${{ matrix.symfony }}" "symfony/dotenv:${{ matrix.symfony }}" "symfony/yaml:${{ matrix.symfony }}" --no-update --no-interaction
           composer update --prefer-dist --no-progress --no-interaction --optimize-autoloader
       
@@ -48,4 +58,5 @@ jobs:
         run: vendor/bin/phpunit
       
       - name: Run Behat tests
+        if: ${{ matrix.symfony != '8.0.*' && matrix.symfony != '8.1.*' }}
         run: vendor/bin/behat
